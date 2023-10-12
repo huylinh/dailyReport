@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="user/fragments/base_layout"
+>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row" th:object="${projects}">
+            <h2>Project List</h2>
+            <div class="col-lg-12">
+                <input type="search" class="form-control" id="input-search" placeholder="Search project...">
+            </div>
+            <div class="searchable-container" th:each="project: ${projects}">
+                <a th:href="@{/projects/{id}(id=${project.id})}">
+                <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-6 clearfix">
+                    <div class="info-block block-info clearfix">
+                        <div class="square-box pull-left">
+                            <span class="glyphicon glyphicon-user glyphicon-lg"></span>
+                        </div>
+                        <h4 th:text="${project.name}">Project Name</h4>
+                        <h5>Start date : <span th:text="${project.startDate}">start date</span></h5>
+                        <h5>End date : <span th:text="${project.endDate}">end date</span></h5>
+                        <h6>Status : <span th:text="${project.status}">status</span></h6>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

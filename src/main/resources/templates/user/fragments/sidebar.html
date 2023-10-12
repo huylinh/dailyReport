@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="side-bar">
+    <div id="sidebar-wrapper">
+        <aside id="sidebar">
+            <ul id="sidemenu" class="sidebar-nav">
+                <li id = "my_projects">
+                    <a href="/projects">
+                        <span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>
+                        <span class="sidebar-title">My Projects</span>
+                    </a>
+                </li>
+                <li id = "new_report">
+                    <a href="/reports/new">
+                        <span class="sidebar-icon"><i class="fa fa-newspaper-o"></i></span>
+                        <span class="sidebar-title">Daily Report</span>
+                    </a>
+                </li>
+                <li id = "my_reports">
+                    <a href="/reports/">
+                        <span class="sidebar-icon"><i class="fa fa-history"></i></span>
+                        <span class="sidebar-title">Report history</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+</div>
+</body>
+</html>

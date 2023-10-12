@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{managers/layout/layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Manager</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<!-- Recent Sales Start -->
+		<div class="container-fluid pt-4 px-4">
+			<div class="bg-light text-center rounded p-4">
+				<div class="d-flex align-items-center justify-content-between mb-4">
+					<h6 class="mb-0">List Departments</h6>
+
+
+				</div>
+				<div class="table-responsive">
+					<table class="table text-start align-middle table-bordered table-hover mb-0">
+						<thead>
+							<tr class="text-dark">
+								<th scope="col">Avatar</th>
+								<th scope="col">Department Name</th>
+								<th scope="col">Description</th>
+
+								<th scope="col">Action</th>
+
+						</thead>
+						<tbody>
+							<tr>
+
+								<td><img class="rounded-circle me-lg-2" src="https://app.photo.smartthon.com/enterprise/avatar/f5fb4552-8455-42ba-8c1c-bea22d22268e.png" alt="department image"
+										style="width: 40px; height: 40px;"></td>
+								<td th:text="${user.department.name}"></td>
+								<td th:text="${user.department.description}"></td>
+								<td><a class="btn btn-sm btn-success"
+										th:href="@{/manager/departments/listEmployee}">View Detail</a></td>
+							</tr>
+
+
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- Recent Sales End -->
+	</div>
+
+
+</body>
+
+</html>

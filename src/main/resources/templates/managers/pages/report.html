@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Report list by link</title>
+</head>
+<body>
+<div th:fragment="report">
+    <!-- Button trigger modal -->
+    <!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+    <!--        Launch demo modal-->
+    <!--    </button>-->
+    <!-- Modal -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" >Report [<span class="modal-title-date"></span>]</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--Report header-->
+                    <div class="row">
+                        <div class="col">From:
+                            <strong class="created-by">Nguyen Thi Linh</strong>
+                        </div>
+                        <div class="col">To:
+                            <strong class="to-user">Nguyen Thi Linh</strong>
+                        </div>
+                    </div>
+<!--                    <div class="row">-->
+<!--                        <div>Report Date:-->
+<!--                            <span class="report-date">Sunday, 2023-04-12</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="row mb-4">
+                        <div>
+                            Project:
+                            <span class="project-name">training IT</span>
+                        </div>
+                    </div>
+                    <!--Report body-->
+                    <div class="row mb-2">
+                        <div>
+                            <strong>Working time:</strong>
+                            <span class="working-time"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div>
+                            <strong>Actual work:</strong>
+                            <span class="actual-work"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div>
+                            <strong>Reason cannot complete work:</strong>
+                            <span class="reason-cannot-complete">...</span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div>
+                            <strong> Tomorrow plan:</strong>
+                            <span class="tomorrow-plan">...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<head th:replace="admin/fragments/layout :: html_head(title='Admin - User management')"></head>
+
+<body>
+<div class="d-flex" id="wrapper">
+    <div th:replace="admin/fragments/sidebar.html :: side-bar"></div>
+
+    <div class="w-100">
+        <div th:replace="admin/fragments/header.html :: header (title='User')"></div>
+        <div class="container">
+
+            <legend>User Management</legend>
+
+            <!-- Display success or error messages -->
+            <div th:if="${param.success}" class="alert alert-success">
+                <p th:text="${param.success}"></p>
+            </div>
+            <div th:if="${param.error}" class="alert alert-danger">
+                <p th:text="${param.error}"></p>
+            </div>
+
+            <ul>
+                <li>
+                    This is the page for managing users
+                </li>
+                <li>
+                    You can import users from an Excel file
+                </li>
+                <li>
+                    Download template from <a th:href="@{/static/files/DAILY_REPORT_USER_IMPORT.xlsx}"  download="DAILY_REPORT_USER_IMPORT.xlsx">here</a>
+                </li>
+            </ul>
+            <!-- Form to upload Excel file -->
+            <form
+                    th:action="@{/admin/users/importExcel}"
+                    th:method="POST"
+                    enctype="multipart/form-data"
+                    class="input-group mb-4"
+            >
+                <input class="form-control" type="file" name="file" accept=".xls, .xlsx" required/>
+                <button class="btn btn-success" type="submit">Import Data</button>
+            </form>
+
+            <!-- Form to search users -->
+        </div>
+    </div>
+</div>
+</body>

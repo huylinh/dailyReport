@@ -1,0 +1,35 @@
+<head th:replace="admin/fragments/layout :: html_head(title='Admin - Departments management')"></head>
+
+
+<div class="d-flex" id="wrapper">
+    <div th:replace="admin/fragments/sidebar.html :: side-bar"></div>
+
+    <div class="w-100">
+        <div th:replace="admin/fragments/header.html :: header"></div>
+
+        <div class="container">
+            <!-- Department form -->
+            <form th:action="@{/admin/departments/create}" method="post">
+
+                <legend>Create new department</legend>
+
+                <!-- Input fields for department details -->
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input class="form-control" type="text" id="name" name="name" required/>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" type="text" id="description" name="description"></textarea>
+                </div>
+                <div class="float-end mt-2">
+                    <!-- Submit button to add the department -->
+                    <a th:href="@{/admin/departments}" class="text-decoration-none">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    </a>
+                    <input type="submit" class="btn btn-success" value="Add Department"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagination</title>
+</head>
+<body>
+<div th:fragment = "pagination(page,link)">
+    <div class="mt-2 me-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end" th:if="${page.totalPages > 0}">
+                <li class="page-item" th:classappend="${0==page.number} ? 'disabled' ">
+                    <a class="page-link"
+                       th:href="@{${link}(size=${page.size}, page=${page.number})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${page.totalPages != 1}">
+                    <a th:href="@{${link}(size=${page.size}, page=1,name = ${name}, date = ${date})}"
+                       th:text="1"
+                       th:class="page-link"
+                       th:classappend="${1 == page.number + 1} ? 'bg-primary text-light' "
+                    >1</a></li>
+                <li class="page-item page-link border-0"
+                    th:if="${page.number >= 5 && page.totalPages >= 11 }">...
+                </li>
+                <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{${link}(size=${page.size}, page=${pageNumber}, name = ${name}, date = ${date})}"
+                       th:text="${pageNumber}"
+                       th:class="page-link"
+                       th:classappend="${pageNumber==page.number + 1} ? 'bg-primary text-light' "
+                    >1</a></li>
+                <li class="page-item page-link border-0"
+                    th:if="${page.totalPages - 5 >= page.number && page.totalPages >= 11 }">
+                    ...
+                </li>
+                <li class="page-item">
+                    <a th:href="@{${link}(size=${page.size}, page=${page.totalPages}, name = ${name}, date = ${date})}"
+                       th:text="${page.totalPages}"
+                       th:class="page-link"
+                       th:classappend="${page.totalPages==page.number + 1} ? 'bg-primary text-light' "
+                    >1</a></li>
+                <li class="page-item"
+                    th:classappend="${page.totalPages == page.number + 1} ? 'disabled' ">
+                    <a class="page-link" aria-label="Next"
+                       th:href="@{${link}(size=${page.size}, page=${page.number} + 2)}">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

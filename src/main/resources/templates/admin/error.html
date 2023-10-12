@@ -1,0 +1,26 @@
+<head th:replace="admin/fragments/layout :: html_head(title='Admin - Departments management')"></head>
+
+
+<body>
+
+<div class="w-100 h-100 d-flex justify-content-center align-items-center" id="wrapper">
+
+                    <div class="error-template">
+                        <h1>
+                            Oops!</h1>
+                        <h2>
+                            404 Not Found</h2>
+                        <div class="error-details">
+                            Sorry, an error has occured, Requested page not found!
+                        </div>
+                        <div class="error-actions">
+                            <a th:href="@{/admin/departments}" class="btn btn-primary btn-lg">
+                                <span class="glyphicon glyphicon-home"></span>
+                                Take Me Home
+                            </a>
+                        </div>
+        </div>
+
+    <!---->
+</div>
+</body>

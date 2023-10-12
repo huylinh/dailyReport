@@ -1,0 +1,95 @@
+<head th:replace="admin/fragments/layout :: html_head(title='Admin - Departments management')"></head>
+
+<body>
+<div class="d-flex" id="wrapper">
+    <div th:replace="admin/fragments/sidebar.html :: side-bar"></div>
+
+    <div class="w-100">
+        <div th:replace="admin/fragments/header.html :: header"></div>
+        <div class="container">
+
+            <!--    -->
+
+            <form class="form-horizontal">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Department details</legend>
+
+                    <!--  Department info  -->
+                    <div class="d-flex flex-row justify-content-start">
+                        <!--  Department image  -->
+                        <img
+                                class="figure-img rounded w-25 me-3"
+                                th:src="${department.image}"
+                                th:alt="${department.id}"
+                        />
+                        <!-- Text input -->
+                        <div class="w-100">
+                            <div class="form-group">
+                                <label class="control-label" for="textinput">Name</label>
+                                <div class="">
+                                    <input
+                                            id="textinput"
+                                            name="textinput"
+                                            type="text"
+                                            placeholder=""
+                                            class="form-control input-md"
+                                            disabled
+                                            th:value="${department.name}"
+                                    >
+                                </div>
+                            </div>
+                            <!-- Textarea -->
+                            <div class="form-group mb-2">
+                                <label class="control-label" for="textarea">Description</label>
+                                <div class="">
+                                    <textarea
+                                            class="form-control"
+                                            id="textarea"
+                                            name="textarea"
+                                            disabled
+                                            th:field="${department.description}"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--  Edit + Back btn  -->
+                    <div class="form-group mb-4">
+                        <div class="float-end mx-3">
+                            <a th:href="@{/admin/departments/{id}/edit(id=${department.id})}" class="text-decoration-none">
+                                <button type="button" class="btn btn-warning">Edit department</button>
+                            </a>
+                            <a th:href="@{/admin/departments}" class="text-decoration-none">
+                                <button type="button" class="btn btn-inverse">Back</button>
+                            </a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <br>
+
+            <!--  Manager list  -->
+            <div class="w-100 d-flex justify-content-between flex-row mt-4">
+                <legend
+                        class="w-50"
+                        th:text="'Manager list (' + ${managerPage.totalElements} + ')'"
+                ></legend>
+                <a
+                        class="float-end mx-3 mb-2"
+                        th:href="@{/admin/departments/{id}/managers/new(id=${department.id})}">
+                    <button type="button" class="btn btn-success">Add new manager</button>
+                </a>
+            </div>
+            <div
+                    th:replace="~{admin/shared/_manager_table :: table (${managerPage}, ${department.id})}"
+            ></div>
+
+            <!--    -->
+        </div>
+    </div>
+</div>
+</body>

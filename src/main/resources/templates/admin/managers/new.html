@@ -1,0 +1,103 @@
+<head th:replace="admin/fragments/layout :: html_head(title='Admin - Departments management')"></head>
+
+<body>
+<div class="d-flex" id="wrapper">
+    <div th:replace="admin/fragments/sidebar.html :: side-bar"></div>
+
+    <div class="w-100">
+        <div th:replace="admin/fragments/header.html :: header"></div>
+        <div class="container">
+            <!--            -->
+
+            <div
+                    class="w-100 h-100 gap-5 d-flex flex-column justify-content-center align-items-center"
+                    th:if="${page.totalElements == 0}"
+            >
+                <h2 class="text-center">No managers found</h2>
+                <a
+                        th:href="@{/admin/departments/{departmentId}/show(departmentId=${departmentId})}"
+                >
+                    <button
+                            class="btn btn-close-white"
+                    >
+                        Go back
+                    </button>
+                </a>
+            </div>
+
+            <form
+                    th:if="${page.totalElements > 0}"
+                    th:action="@{/admin/departments/{departmentId}/managers/new(departmentId=${departmentId})}"
+            >
+                <div class="form-check-inline col-auto d-flex flex-row gap-4">
+                    <input
+                            class="form-control form-control-sm block"
+                            type="text"
+                            placeholder="Search by name"
+                            name="query"
+                            th:value="${query}"
+                    >
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+
+            <form
+                    th:if="${page.totalElements > 0}"
+                    th:action="@{/admin/departments/{departmentId}/managers/submit(departmentId=${departmentId})}"
+                    th:method="POST">
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th></th>
+                        <th>Username</th>
+                        <th>Full name</th>
+                        <th>Description</th>
+                        <th>Date of birth</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${page.getContent()}">
+                        <td>
+                            <input
+                                    type="checkbox"
+                                    th:id="${'checkbox-' + user.id}"
+                                    th:name="selectedManagerIds"
+                                    th:value="${user.id}"
+                            />
+                        </td>
+                        <td>
+                            <img th:src="${user.avatar}" th:alt="${user.id}" class="avatar rounded-circle"
+                                 style="width: 48px;"/>
+                        </td>
+                        <td th:text="${user.userName}"></td>
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.description}"></td>
+                        <td th:text="${user.dateOfBirth}"></td>
+                    </tr>
+                    <!--                -->
+                    </tbody>
+                </table>
+
+                                    <!-- Pagination -->
+                    <div class="clearfix">
+                        <div
+                                th:if="${page.totalPages > 1}"
+                                th:replace="~{admin/shared/_pagination :: copy(${page}, '/admin/departments/' + ${departmentId} + '/managers/new', ${query})}"
+                        ></div>
+                    </div>
+
+                <button
+                        class="btn btn-success"
+                        type="submit">
+                    Add Selected Items
+                </button>
+                <button class="btn btn-close-white" th:href="@{/admin/departments/{departmentId}/show(departmentId=${departmentId})}">Back</button>
+            </form>
+            <!--            -->
+
+        </div>
+    </div>
+</div>
+</body>

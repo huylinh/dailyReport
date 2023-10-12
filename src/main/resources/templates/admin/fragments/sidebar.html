@@ -1,0 +1,33 @@
+
+<div th:fragment="side-bar"  id="sidebar-wrapper" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100" style="width: 230px;">
+    <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+      <span class="fs-4">Admin</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a th:href="@{/admin/departments}" class="nav-link text-white" aria-current="page"> <!--  active, text-white=x -->
+        <i class="fa fa-building" aria-hidden="true"></i>
+          Departments
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/admin/users}" class="nav-link text-white">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          Users
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+        <div  class="text-center w-100 d-block mb-3">
+            <strong th:text="${#authentication.name}"></strong>
+        </div>
+        <a class="dropdown-item" th:href="@{/logout}"><button class="btn btn-outline-danger w-100">Sign out</button></a>
+    </div>
+  </div>
+
+
+
+

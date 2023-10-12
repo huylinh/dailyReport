@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="user/fragments/base_layout"
+>
+<body>
+<div layout:fragment="content">
+    <div class="timeline-v container">
+        <div class="timelinecontainer approved timeline-left">
+            <h4>
+                You are not assigned any jobs this process !!!
+            </h4>
+            <a th:href="@{/projects/{project_id}(project_id=${project_id})}"
+                    class="btn btn-lg btn-info">
+                <i class="fa fa-arrow-circle-o-left"></i>
+                Back
+            </a>
+        </div>
+        </div>
+</div>
+</body>
+</html>

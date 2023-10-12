@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{managers/layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Manager</title>
+</head>
+<body>
+<div layout:fragment="content">
+<!-- Chart Start -->
+			<div th:each="project_each : ${projects}" class="container-fluid pt-4 px-4">
+				<div class="row g-4">
+					<div class="col-sm-12 col-md-6 col-xl-4">
+						<div class="bg-light rounded p-2">
+							<h6 class="mb-2" th:text="${project_each.name}"></h6>
+							<div class="d-flex align-items-center justify-content-between">
+								<a th:href="@{/manager/project-management/{projectId}/addMembers(projectId=${project_each.id})}">Add Member</a>
+						
+								<span><a th:href="@{/manager/project-management/{projectId}/members(projectId=${project_each.id})}"><i class="fas fa-users"></i></a><a th:href="@{/manager/project-management/{projectId}/members(projectId=${project_each.id})}" th:text="${project_each.projectMembers.size()}"></a></span>
+							</div>
+							<hr class="my-2">
+							<div class="d-flex justify-content-between">
+								<span>Start Date:</span>
+								<strong th:text="${project_each.startDate}"></strong>
+							</div>
+							<div class="d-flex justify-content-between">
+								<span>End Date:</span>
+								<strong th:text="${project_each.endDate}"></strong>
+							</div>
+							<div class="d-flex justify-content-between">
+								<span>Status:</span>
+									<span th:if="${project_each.status==T(com.example.G4_DailyReport.enums.ProjectStatus).NEW}" style="color:white;border: 1px solid #f0ad4e;border-radius: 5px;padding: 2.5px 5px;background-color: green;">New</span>
+									<span th:if="${project_each.status==T(com.example.G4_DailyReport.enums.ProjectStatus).IN_PROGRESS}" style="color:white;border: 1px solid #f0ad4e;border-radius: 5px;padding: 2.5px 5px;background-color: rgb(255, 128, 0);">IN PROGRESS</span>
+									<span th:if="${project_each.status==T(com.example.G4_DailyReport.enums.ProjectStatus).COMPLETED}" style="color:white;border: 1px solid #f0ad4e;border-radius: 5px;padding: 2.5px 5px;background-color: rgb(0, 0, 255);">COMPLETED</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Chart End -->
+
+
+
+</div>
+
+
+</body>
+</html>

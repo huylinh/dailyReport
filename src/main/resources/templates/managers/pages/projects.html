@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{managers/layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!--    Search by name and date-->
+    <div class="d-flex justify-content-between align-items-end me-5">
+        <form th:action="@{/manager/projects}" method="get" class="w-50 d-flex justify-content-start gap-2 pt-4 px-4">
+            <input class="form-control bg-transparent w-50 " type="text" placeholder="Enter name" name="name"/>
+            <select name="status" id="statusSearch">
+                <option value="new">new</option>
+            </select>
+            <button class="btn btn-primary ms-2" type="submit">Search</button>
+        </form>
+        <div>
+            <button type="button" class="btn btn-primary showModalBtn" data-bs-toggle="modal"
+                    data-bs-target="#projectModal" th:data-id="hihi">
+                <i class="fa fa-plus"></i>
+                ADD
+            </button>
+            <button id="updateProject" type="button" class="btn btn-primary">
+                <i class="fas fa-edit"></i>
+                UPDATE
+            </button>
+            <button id="deleteProject" type="button" class="btn btn-primary showModalBtn" data-bs-toggle="modal"
+                    data-bs-target="#deleteModal" >
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                DELETE
+            </button>
+        </div>
+    </div>
+
+    <!--Report table-->
+    <div>
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-light text-center rounded p-4">
+                <div class="mb-4 text-center">
+                    <h6 class="mb-0 h4 ">Projects</h6>
+                </div>
+                <div class="table-responsive">
+                    <table id="project" class="table align-middle table-bordered table-hover mb-0 ">
+                        <thead class="sticky-top border-1 bg-white">
+                        <tr class="text-dark">
+                            <th class="text-center" scope="col">No.</th>
+                            <th class="text-center" scope="col">Name</th>
+                            <th class="text-center" scope="col">Start date</th>
+                            <th class="text-center" scope="col">End date</th>
+                            <th class="text-center" scope="col">Status</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                        <tr id="row" th:each="project,iter : ${page.content}" th:data-uuid="${project.id}">
+                            <td class="text-center" th:text="${iter.index + 1 + page.number * page.size}">
+                                1
+                            </td>
+                            <td class="text-center" th:text="${project.name}">Nguyen Huy Linh</td>
+                            <td class="text-center" th:text="${project.startDate}">Vu Thi Van</td>
+                            <td class="text-center" th:text="${project.endDate}">21-09-2023</td>
+                            <td class="text-center" th:text="${project.status}">Naitei trainning</td>
+                            <td class="text-center">
+                                <!-- Button trigger modal -->
+                                <a th:href="@{/manager/projects/{id}/project-processes(id=${project.id.toString()})}">
+                                    <button type="button" class="btn btn-sm btn-success ">View Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div th:replace="~{managers/components/pagination::pagination(${page},'/manager/projects')}"></div>
+            </div>
+            <form th:action="@{/manager/projects}" th:object="${project}" method="post">
+                <!--Add Project Form-->
+                <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Project</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name"
+                                           placeholder="[HN_naitei19] Trainning Java" th:field="*{name}">
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="startDate">Start date</label>
+                                        <input id="startDate" type="date" class="form-control" th:field="*{startDate}">
+                                    </div>
+                                    <div class="col">
+                                        <label for="endDate">End date</label>
+                                        <input id="endDate" type="date" class="form-control" name="endDate"
+                                               th:field="*{endDate}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select class="form-control" id="status" th:field="*{status}">
+                                        <option th:each="status : ${statuses}" th:value="${status}"
+                                                th:text="${status}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--update project form-->
+            <div class="modal fade" id="update-project-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Update project</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="update-name">Name</label>
+                                <input type="text" class="form-control" id="update-name"
+                                       placeholder="[HN_naitei19] Trainning Java">
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="update-startDate">Start date</label>
+                                    <input id="update-startDate" type="date" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <label for="update-endDate">End date</label>
+                                    <input id="update-endDate" type="date" class="form-control" name="endDate"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="update-status">Status</label>
+                                <select class="form-control" id="update-status">
+                                    <option th:each="status : ${statuses}" th:value="${status}"
+                                            th:text="${status}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="update-submit" type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to delete this record?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="deleteProjectBtn" type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/managers/js/project.js}"></script>
+</div>
+</body>
+</html>

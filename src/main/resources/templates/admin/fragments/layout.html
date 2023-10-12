@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org">
+<head th:fragment="html_head">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link th:href="@{/css/admin/main.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>[(${title})]</title>
+</head>
+<body>
+    <nav th:fragment="header">
+        <div th:replace="admin/fragments/header"></div>
+    </nav>
+
+<!--    <footer th:fragment="footer" th:style="'position: absolute; bottom: 0; width: 100%; height: ' + (${footerHeight} + 'px')">-->
+<!--        <div th:replace="fragments/footer"></div>-->
+<!--    </footer>-->
+</body>
+</html>

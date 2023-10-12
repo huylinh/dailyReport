@@ -1,0 +1,35 @@
+spring.jpa.show-sql=true
+server.port = 8084
+#spring.datasource.url=jdbc:h2:file:~/hello2;AUTO_SERVER=TRUE;
+
+security.ignored=/**
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.username=mysqluser
+spring.datasource.password=mysqlpass
+spring.datasource.url=jdbc:mysql://localhost:3306/myDb?createDatabaseIfNotExist=true
+spring.jpa.hibernate.ddl-auto=update
+
+
+# Disable Whitelabel Error Page
+# server.error.whitelabel.enabled=false
+
+#i18n
+spring.messages.basename=i18n/messages
+spring.messages.encoding=UTF-8
+
+
+# Send email
+# Get spring.mail.password
+#   - Goto https://myaccount.google.com/apppasswords
+#   - Create new app password and copy the password
+# Note that the password is not your gmail password
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=**************@gmail.com
+spring.mail.password=**************
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+# Enable hidden method filter
+spring.mvc.hiddenmethod.filter.enabled=true

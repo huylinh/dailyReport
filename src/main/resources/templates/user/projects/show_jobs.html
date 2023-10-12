@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="user/fragments/base_layout"
+>
+<body>
+<div layout:fragment="content">
+    <div class="timeline-v container">
+        <a th:href="@{/projects/{project_id}(project_id=${project_id})}"
+           class="btn btn-lg btn-info">
+            <i class="fa fa-arrow-circle-o-left"></i>
+            Back
+        </a>
+        <br>
+        <form th:action="@{/projects/{project_id}/{process_id}/(project_id=${project_id} , process_id=${process_id})}"
+              accept-charset="UTF-8" method="post" th:object="${member_jobsList}">
+            <div th:each="member_job,state : *{member_jobs}">
+                <div class="timelinecontainer approved timeline-left">
+                    <div class="timelinecontent">
+                        <h3>Content : <span
+                                th:text="*{member_jobs[__${state.index}__].projectJob.content}">content</span>
+                        </h3>
+                        <h3>Name : <span th:text="*{member_jobs[__${state.index}__].user.name}">content</span>
+                        </h3>
+                        <div class="well well-sm text-center" data-toggle="buttons">
+                            <input type="hidden" th:field="*{member_jobs[__${state.index}__].user.id}">
+                            <input type="hidden" th:field="*{member_jobs[__${state.index}__].projectJob.id}">
+                            <input type="hidden" th:field="*{member_jobs[__${state.index}__].id}">
+                            <input th:id="__${state.index}__" type="hidden"
+                                   th:field="*{member_jobs[__${state.index}__].tempStatus}">
+                            <div th:if="*{member_jobs[__${state.index}__].status.name() == 'IN_PROGRESS'
+                            || member_jobs[__${state.index}__].status.name() == 'NEW'}">
+                                <button th:attr="onclick=|markAsUnDone('${state.index}')|"
+                                        class="btn btn-sm btn-success active">
+                                    <input type="radio" th:name="${state.index} + 'options'"
+                                           th:id="'option' + ${state.index}">
+                                    <i class="fa fa-check"></i> Done
+                                </button>
+                                <button th:attr="onclick=|markAsDone('${state.index}')|" class="btn btn-sm btn-danger">
+                                    <input type="radio" th:name="${state.index} + 'options'"
+                                           th:id="'option'+${state.index}">
+                                    <i class="fa fa-warning"></i> In Progress / New *
+                                </button>
+                            </div>
+                            <div th:if="*{member_jobs[__${state.index}__].status.name() == 'LATE_SUBMISSION'}">
+                                <label class="btn btn-sm btn-warning active">
+                                    <input type="radio" autocomplete="off"
+                                           th:text="*{member_jobs[__${state.index}__].status.name()}">
+                                    <i class="fa fa-check"></i>
+                                </label>
+                                <label class="btn btn-sm btn-warning">
+                                    <input type="radio" autocomplete="off"
+                                           th:text="*{member_jobs[__${state.index}__].status.name()}">
+                                    <i class="fa fa-check"></i>
+                                </label>
+                            </div>
+                            <div th:if="*{member_jobs[__${state.index}__].status.name() == 'DONE'
+                            || member_jobs[__${state.index}__].status.name() == 'COMPLETED'}">
+                                <label class="btn btn-sm btn-success active">
+                                    <input type="radio" autocomplete="off"
+                                           th:text="*{member_jobs[__${state.index}__].status.name()}">
+                                    <i class="fa fa-check"></i>
+                                </label>
+                                <label class="btn btn-sm btn-success">
+                                    <input type="radio" autocomplete="off"
+                                           th:text="*{member_jobs[__${state.index}__].status.name()}">
+                                    <i class="fa fa-check"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <input type="submit" name="commit" value="Submit" class="btn btn-lg btn-primary"
+                   data-disable-with="Submitting">
+        </form>
+    </div>
+</div>
+</body>
+</html>

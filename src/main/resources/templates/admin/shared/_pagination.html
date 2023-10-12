@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="copy (page, url, query)" th:if="${page.totalPages > 0}" class="pagination">
+    <ul class="pagination">
+<!--        -->
+        <li class="prev previous_page" th:classappend="${page.first} ? disabled">
+            <a
+                    th:href="${page.hasPrevious()} ? @{${url}+'?page='+${page.number - 0} + '&size='+${page.getSize()} } : 'javascript:void(0);'"
+                    th:text="Previous"
+            ></a>
+        </li>
+<!--        -->
+        <li th:each="i: ${#numbers.sequence(1, page.totalPages)}" th:classappend="${i==(page.number + 1)} ? active">
+            <a
+                    th:href="@{${url} + '?page='+${i} + '&size='+${page.getSize()}}"
+                    th:text="${i}"
+            ></a>
+        </li>
+<!--        -->
+        <li class="next next_page" th:classappend="${page.last} ? disabled">
+            <a
+                    th:href="${page.hasNext()} ? @{${url}+'?page='+${page.number + 2}+ '&size='+${page.getSize()} } : 'javascript:void(0);'"
+                    th:text="Next"
+            ></a>
+        </li>
+    </ul>
+<!--    -->
+</div>
+</body>
+</html>
